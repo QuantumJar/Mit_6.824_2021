@@ -27,7 +27,7 @@ func Map(filename string, contents string) []mr.KeyValue {
 
 	// split contents into an array of words.
 	words := strings.FieldsFunc(contents, ff)
-
+	//声明一个KeyValue的空切片
 	kva := []mr.KeyValue{}
 	for _, w := range words {
 		kv := mr.KeyValue{w, "1"}
