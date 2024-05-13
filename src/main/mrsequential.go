@@ -6,21 +6,30 @@ package main
 // go run mrsequential.go wc.so pg*.txt
 //
 
-import "fmt"
-import "6.5840/mr"
-import "plugin"
-import "os"
-import "log"
-import "io/ioutil"
-import "sort"
+import (
+	"fmt"
+	"io/ioutil"
+	"log"
+	"os"
+	"plugin"
+	"sort"
+
+	"6.5840/mr"
+)
 
 // for sorting by key.
 type ByKey []mr.KeyValue
 
-// for sorting by key.
-func (a ByKey) Len() int           { return len(a) }
-func (a ByKey) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
-func (a ByKey) Less(i, j int) bool { return a[i].Key < a[j].Key }
+// Bykey这个类型的方法
+func (a ByKey) Len() int {
+	return len(a)
+}
+func (a ByKey) Swap(i, j int) {
+	a[i], a[j] = a[j], a[i]
+}
+func (a ByKey) Less(i, j int) bool {
+	return a[i].Key < a[j].Key
+}
 
 func main() {
 	if len(os.Args) < 3 {
@@ -34,18 +43,24 @@ func main() {
 	// read each input file,
 	// pass it to Map,
 	// accumulate the intermediate Map output.
-	//
+	// 运行指令go run mrsequential.go wc.so pg*.txt
+
+	//声明一个键值对的切片
 	intermediate := []mr.KeyValue{}
+	//对每个文件执行一次
 	for _, filename := range os.Args[2:] {
+		//打开一个文件，成功返回的是这个文件本身
 		file, err := os.Open(filename)
 		if err != nil {
 			log.Fatalf("cannot open %v", filename)
 		}
+		//读取的文件内容
 		content, err := ioutil.ReadAll(file)
 		if err != nil {
 			log.Fatalf("cannot read %v", filename)
 		}
 		file.Close()
+
 		kva := mapf(filename, string(content))
 		intermediate = append(intermediate, kva...)
 	}
