@@ -18,15 +18,19 @@ import (
 )
 
 // for sorting by key.
+// 声明了一个新的类型叫做ByKey，这个类型的底层数据类型是KeyValue的数组
 type ByKey []mr.KeyValue
 
-// Bykey这个类型的方法
+// for sorting by key. 这里返回这个数组的长度
 func (a ByKey) Len() int {
 	return len(a)
 }
+
 func (a ByKey) Swap(i, j int) {
 	a[i], a[j] = a[j], a[i]
 }
+
+// 如果a[i]的key的大小（这里是靠前的意思）小于a[j] 返回true
 func (a ByKey) Less(i, j int) bool {
 	return a[i].Key < a[j].Key
 }
