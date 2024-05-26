@@ -8,7 +8,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"plugin"
@@ -59,7 +58,7 @@ func main() {
 			log.Fatalf("cannot open %v", filename)
 		}
 		//读取的文件内容
-		content, err := ioutil.ReadAll(file)
+		content, err := os.ReadAll(file)
 		if err != nil {
 			log.Fatalf("cannot read %v", filename)
 		}
