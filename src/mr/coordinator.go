@@ -8,9 +8,17 @@ import (
 	"os"
 )
 
+const ResponseTime int = 10
+
 type Coordinator struct {
 	// Your definitions here.
+	MapTasks []MapTask
 
+	nReduce int
+}
+
+type MapTask struct {
+	Split os.File
 }
 
 // Your code here -- RPC handlers for the worker to call.
@@ -52,7 +60,9 @@ func (c *Coordinator) Done() bool {
 // main/mrcoordinator.go calls this function.
 // nReduce is the number of reduce tasks to use.
 func MakeCoordinator(files []string, nReduce int) *Coordinator {
-	c := Coordinator{}
+	c := Coordinator{
+		nReduce: nReduce,
+	}
 
 	// Your code here.
 
