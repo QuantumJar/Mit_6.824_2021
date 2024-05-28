@@ -24,6 +24,7 @@ func main() {
 	}
 
 	m := mr.MakeCoordinator(os.Args[1:], 10)
+	//任务是否完成
 	for m.Done() == false {
 		time.Sleep(time.Second)
 	}
