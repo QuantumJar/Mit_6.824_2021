@@ -8,11 +8,13 @@ import (
 	"os"
 )
 
+const ResponseTime int = 10
+
 type Coordinator struct {
 	// Your definitions here.
+	MapTasks []MapTask
 
-	//保存任务文件
-	MapTasks []os.File
+	nReduce int
 }
 
 // Your code here -- RPC handlers for the worker to call.
@@ -54,19 +56,7 @@ func (c *Coordinator) Done() bool {
 // main/mrcoordinator.go calls this function.
 // nReduce is the number of reduce tasks to use.
 func MakeCoordinator(files []string, nReduce int) *Coordinator {
-	c := Coordinator{
-		MapTasks: []os.File{},
-	}
-
-	for _, filename := range files {
-		//这里返回的是一个 os.File类型的指针
-		file, err := os.Open(filename)
-		if err != nil {
-			log.Fatal("error open file :%v", filename)
-		}
-		//所以这里应该使用取值符号
-		c.MapTasks = append(c.MapTasks, *file)
-	}
+	c := Coordinator{}
 
 	// Your code here.
 
