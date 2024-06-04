@@ -59,11 +59,11 @@ func (c *Coordinator) Done() bool {
 func MakeCoordinator(files []string, nReduce int) *Coordinator {
 
 	c := Coordinator{
-		
+		MapTasks: []os.File,
 	}
 
 	//获取所有文件保存为mapTasks
-	for _,f : range files{
+	for _,f := range files{
 		file,err := os.OpenFile(files)
 
 		c.MapTasks = append(c.MapTasks, file)
