@@ -1,7 +1,6 @@
 package mr
 
 import (
-	"fmt"
 	"log"
 	"net"
 	"net/http"
@@ -56,22 +55,18 @@ func (c *Coordinator) Done() bool {
 // main/mrcoordinator.go calls this function.
 // nReduce is the number of reduce tasks to use.
 func MakeCoordinator(files []string, nReduce int) *Coordinator {
-	var mapTasks []os.File
-	c := Coordinator{
-		MapTasks: mapTasks,
-	}
+
+	c := Coordinator{}
 
 	//获取所有文件保存为mapTasks
 	for _, f := range files {
 		file, err := os.Open(f)
 		if err != nil {
-			log.Fatal("error open file %v", f)
+			log.Fatalf("error open file %v", f)
 		}
 
 		c.MapTasks = append(c.MapTasks, *file)
 	}
-
-	fmt.Println("len of file %v", len(c.MapTasks))
 
 	// Your code here.
 
