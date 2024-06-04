@@ -15,7 +15,6 @@ type Coordinator struct {
 	// Your definitions here.
 	//
 	MapTasks []os.File
-	ReduceTasks []
 }
 
 // Your code here -- RPC handlers for the worker to call.
@@ -63,13 +62,13 @@ func MakeCoordinator(files []string, nReduce int) *Coordinator {
 	}
 
 	//获取所有文件保存为mapTasks
-	for _,f := range files{
-		file,err := os.OpenFile(files)
+	for _, f := range files {
+		file, err := os.OpenFile(files)
 
 		c.MapTasks = append(c.MapTasks, file)
 	}
-	
-	fmt.Println("len of file %v",len(c.MapTasks))
+
+	fmt.Println("len of file %v", len(c.MapTasks))
 
 	// Your code here.
 
